@@ -1,6 +1,6 @@
 // api/admin/tours/index.js - Admin endpoints for managing tours
-import admin from 'firebase-admin';
-import { initializeFirebase } from '../../../lib/firebase';
+const admin = require('firebase-admin');
+const { initializeFirebase } = require('../../../lib/firebase');
 
 if (!admin.apps.length) {
   initializeFirebase();
@@ -18,7 +18,7 @@ function requireAdmin(handler) {
   };
 }
 
-export default requireAdmin(async function handler(req, res) {
+module.exports = requireAdmin(async function handler(req, res) {
   if (req.method === 'POST') {
     // Create a new tour
     const { tourId, name, shortDescription, longDescription, details, itinerary, inclusions, recommendations, faqs, pricingTiers, isActive = true } = req.body;
