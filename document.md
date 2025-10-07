@@ -679,3 +679,29 @@ El backend de Nevado Trek ha sido completamente implementado y desplegado en Ver
    - Unirse con `POST /api/joinEvent`
 
 El sistema está listo para pruebas completas y puede manejar todo el flujo de negocio descrito en este documento.
+
+## Resolución de Problemas Comunes
+
+### Issue de Ruteo de API (Resuelto - Octubre 2025)
+
+**Problema**: Durante la implementación, se identificó que los endpoints de la API retornaban errores 404/500 a pesar de tener las variables de entorno correctamente configuradas.
+
+**Causa Raíz**: El archivo `index.js` contenía un interceptor de rutas que bloqueaba todas las solicitudes a `/api`:
+
+```javascript
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'API routes are handled by Vercel serverless functions. See /api folder.' });
+});
+```
+
+Este interceptor era apropiado para desarrollo local pero impedía que las funciones serverless de Vercel procesaran las solicitudes.
+
+**Solución**: Se eliminó el interceptor de rutas y se dejó el comentario apropiado:
+```javascript
+// API routes are handled by Vercel serverless functions in the /api folder
+// This server is only for local development health checks
+```
+
+**Resultado**: Todos los endpoints API ahora funcionan correctamente en el entorno de producción de Vercel.
+
+Este fix permite que Vercel enrute correctamente las solicitudes a las funciones serverless en el directorio `/api` mientras mantiene la funcionalidad de desarrollo local.

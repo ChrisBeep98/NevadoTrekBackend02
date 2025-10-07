@@ -66,7 +66,8 @@ async function testEndpoints() {
   // Test GET /api/tours (get all tours)
   try {
     const toursResponse = await axios.get(`${baseUrl}/api/tours`);
-    console.log('✓ Get Tours:', toursResponse.data?.tours?.length || 0, 'tours found');
+    const toursCount = Array.isArray(toursResponse.data) ? toursResponse.data.length : 0;
+    console.log('✓ Get Tours:', toursCount, 'tours found');
   } catch (error) {
     console.log('✗ Get Tours failed:', error.response?.status, error.response?.data?.message || error.message);
   }
@@ -74,7 +75,8 @@ async function testEndpoints() {
   // Test GET /api/getTour?tourId=test-tour-1 (get specific tour)
   try {
     const specificTourResponse = await axios.get(`${baseUrl}/api/getTour?tourId=test-tour-1`);
-    console.log('✓ Get Specific Tour:', specificTourResponse.data?.tourId ? 'Found' : 'Not found');
+    const tourExists = specificTourResponse.data && Object.keys(specificTourResponse.data).length > 0;
+    console.log('✓ Get Specific Tour:', tourExists ? 'Found' : 'Not found');
   } catch (error) {
     console.log('✗ Get Specific Tour failed:', error.response?.status, error.response?.data?.message || error.message);
   }
