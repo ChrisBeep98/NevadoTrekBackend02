@@ -1,6 +1,6 @@
 // api/tours/index.js - Get all active tours
-import admin from 'firebase-admin';
-import { initializeFirebase } from '../../lib/firebase';
+const admin = require('firebase-admin');
+const { initializeFirebase } = require('../../lib/firebase');
 
 if (!admin.apps.length) {
   initializeFirebase();
@@ -8,7 +8,7 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }

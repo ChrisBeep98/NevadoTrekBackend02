@@ -144,12 +144,59 @@ All required environment variables are properly set in Vercel:
 2. **`test-endpoints.js`**: Created comprehensive test script
 3. **`package.json`**: Added axios dependency
 
+## Additional Fix Applied (October 7, 2025 - Round 2)
+
+### **Problem Identified**
+**Issue**: ES Modules vs CommonJS compatibility problem causing Firebase initialization to fail.
+
+**Root Cause**: Mixed module systems in the codebase:
+- `lib/firebase.js` was using ES modules (`import`/`export`)
+- Main project files were using CommonJS (`require`/`module.exports`)
+- This mismatch prevented Firebase from initializing properly, causing 500 errors
+
+### **Fix Applied**
+**Files Modified**:
+1. **`lib/firebase.js`**: Converted from ES modules to CommonJS
+2. **`api/admin/tours/index.js`**: Updated imports to use `require()` syntax
+
+**Before (ES Modules)**:
+```javascript
+import admin from 'firebase-admin';
+export function initializeFirebase() {
+```
+
+**After (CommonJS)**:
+```javascript
+const admin = require('firebase-admin');
+function initializeFirebase() {
+  // ... function body
+}
+module.exports = { initializeFirebase };
+```
+
+### **API Files Updated**
+- ✅ `lib/firebase.js` - Converted to CommonJS
+- ✅ `api/admin/tours/index.js` - Updated import statements
+
 ## Git Commit Details
 
-- **Commit Hash**: `b1e694a`
+**Latest Commit**:
+- **Commit Hash**: `aff52c1`
+- **Message**: "Fix ES modules vs CommonJS compatibility - convert imports to requires for Firebase and API files"
+- **Files Changed**: 2 files
+- **Purpose**: Resolve Firebase initialization issues
+
+**Previous Commits**:
+- **Commit Hash**: `b1e694a` - Fixed API routing issue
 - **Files Changed**: 5 files
 - **Insertions**: 197 lines
 - **Deletions**: 16 lines
 - **New File**: `test-tour-1.json`
 
-This fix should resolve the API endpoint issues and allow proper testing of the tour creation and retrieval functionality.
+## Current Status
+
+**Deployment**: Latest changes pushed to GitHub, Vercel deployment in progress
+**Expected Timeline**: 1-2 minutes for deployment completion
+**Next Step**: Re-run tests after deployment completes
+
+This fix should resolve both the routing issue AND the Firebase connection issue, allowing all API endpoints to work properly for testing the full booking flow.
