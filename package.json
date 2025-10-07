@@ -1,0 +1,31 @@
+{
+  "name": "nevado-trek-vercel-backend",
+  "version": "1.0.0",
+  "description": "Backend for Nevado Trek tour booking system deployed on Vercel with Firestore",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "vercel-build": "echo 'Build completed'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vercel",
+    "firebase",
+    "firestore",
+    "tours",
+    "booking",
+    "backend"
+  ],
+  "author": "Nevado Trek",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase-admin": "^11.11.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

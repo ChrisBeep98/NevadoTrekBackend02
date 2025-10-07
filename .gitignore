@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Service account files (protect the actual key files)
+*firebase-adminsdk*.json
+
+# Runtime data
+.pids
+.logs
+.nyc_output
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Temporary files
+*.tmp
+*.backup
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build outputs
+dist/
+build/
+.nuxt
+.next
+out/
+
+# Logs
+logs/
+*.log
+
+# Environment specific files that should not be committed
+firebase-debug.log*
+firebase_config.json

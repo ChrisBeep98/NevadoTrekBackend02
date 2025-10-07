@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "nevado-trek-backend",
+  "framework": null,
+  "functions": {
+    "api/**/*.js": {
+      "includeFiles": "{package.json,**/*.js,**/*.json}",
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  }
+}
