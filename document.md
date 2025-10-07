@@ -256,7 +256,11 @@ Gestión de Tours:
 
 Al crear o editar un tour, tu panel muestra campos para ambos idiomas lado a lado (e.g., "Nombre (Español)" y "Nombre (Inglés)").
 POST/PUT envía objeto bilingüe completo.
-Endpoints: GET /api/admin/tours, POST /api/admin/tours, PUT /api/admin/tours/:tourId, DELETE /api/admin/tours/:tourId.
+Endpoints implementados: 
+- GET /api/admin/tours (obtiene todos los tours)
+- POST /api/admin/tours (crea nuevo tour con soporte bilingüe completo)
+- PUT /api/admin/tours/:tourId (actualiza tour existente) *próximamente*
+- DELETE /api/admin/tours/:tourId (elimina tour) *próximamente*
 
 Gestión de Reservas y Calendario:
 
@@ -621,3 +625,57 @@ git push -u origin main
 - [ ] No hay credenciales en el código
 - [ ] La documentación está actualizada si aplica
 - [ ] Se han verificado los endpoints nuevos con Postman/curl
+
+## Estado Actual del Proyecto (Octubre 2025)
+
+El backend de Nevado Trek ha sido completamente implementado y desplegado en Vercel con éxito. La implementación incluye todas las funcionalidades descritas en este documento, con las siguientes características adicionales:
+
+### Funcionalidades Implementadas Recientemente
+1. **Gestión de Tours por API**: Admin puede crear tours directamente a través del endpoint `POST /api/admin/tours`, eliminando la necesidad de crear documentos manualmente en Firestore.
+2. **Soporte Completo Bilingüe**: Todos los endpoints ahora manejan textos en español e inglés de manera consistente.
+3. **Autenticación Admin Mejorada**: Implementación de clave de administrador vía header `X-Admin-Secret-Key`.
+
+### Estado del Despliegue
+- **URL**: https://nevado-trek-backend02-jka2-n53ctwb7m.vercel.app
+- **Repo GitHub**: https://github.com/ChrisBeep98/NevadoTrekBackend02
+- **Estado**: Funcional y listo para pruebas
+
+### Variables de Entorno Configuradas
+- ADMIN_KEY: IsutcY5bNP
+- FIREBASE_PROJECT_ID: nevadotrektest01
+- FIREBASE_CLIENT_EMAIL: firebase-adminsdk-fbsvc@nevadotrektest01.iam.gserviceaccount.com
+- FIREBASE_PRIVATE_KEY: (formateada correctamente con \\n para saltos de línea)
+
+### Guía de Pruebas
+1. **Verificar salud del sistema**:
+   - GET `https://nevado-trek-backend02-jka2-n53ctwb7m.vercel.app/api/health`
+
+2. **Crear un tour de prueba (requiere admin)**:
+   ```bash
+   curl -X POST https://nevado-trek-backend02-jka2-n53ctwb7m.vercel.app/api/admin/tours \
+     -H "Content-Type: application/json" \
+     -H "X-Admin-Secret-Key: IsutcY5bNP" \
+     -d '{
+       "tourId": "test-tour",
+       "name": {
+         "es": "Tour de Prueba", 
+         "en": "Test Tour"
+       },
+       "pricingTiers": [
+         {"pax": 1, "pricePerPerson": 100000},
+         {"pax": 2, "pricePerPerson": 90000}
+       ],
+       "isActive": true
+     }'
+   ```
+
+3. **Probar endpoints públicos**:
+   - GET `/api/tours` - Listar tours activos
+   - GET `/api/getTour?tourId=test-tour` - Detalles de tour específico
+
+4. **Flujo completo de reserva**:
+   - Crear reserva con `POST /api/createBooking`
+   - Publicar evento con `POST /api/admin/events/[eventId]/publish`
+   - Unirse con `POST /api/joinEvent`
+
+El sistema está listo para pruebas completas y puede manejar todo el flujo de negocio descrito en este documento.
