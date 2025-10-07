@@ -177,14 +177,20 @@ module.exports = { initializeFirebase };
 ### **API Files Updated**
 - ✅ `lib/firebase.js` - Converted to CommonJS
 - ✅ `api/admin/tours/index.js` - Updated import statements
+- ✅ `api/getTour.js` - Converted to CommonJS
+- ✅ `api/tours/index.js` - Converted to CommonJS
 
 ## Git Commit Details
 
 **Latest Commit**:
-- **Commit Hash**: `aff52c1`
-- **Message**: "Fix ES modules vs CommonJS compatibility - convert imports to requires for Firebase and API files"
-- **Files Changed**: 2 files
-- **Purpose**: Resolve Firebase initialization issues
+- **Commit Hash**: `1edd56c`
+- **Message**: "Fix ES modules compatibility in remaining API files - convert getTour.js and tours/index.js to CommonJS"
+- **Files Changed**: 3 files
+- **Purpose**: Complete ES modules to CommonJS conversion
+
+**Previous Commits**:
+- **Commit Hash**: `aff52c1` - Fixed Firebase and admin tours compatibility
+- **Commit Hash**: `b1e694a` - Fixed API routing issue
 
 **Previous Commits**:
 - **Commit Hash**: `b1e694a` - Fixed API routing issue

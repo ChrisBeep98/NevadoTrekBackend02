@@ -1,12 +1,12 @@
 // api/health.js - Health check endpoint
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  res.status(200).json({ 
-    status: 'OK', 
+  res.status(200).json({
+    status: 'OK',
     timestamp: new Date().toISOString(),
     message: 'Nevado Trek Backend is running'
   });
-}
+};
