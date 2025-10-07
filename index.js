@@ -9,10 +9,8 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-// Redirect to API routes for Vercel compatibility
-app.use('/api', (req, res) => {
-  res.status(404).json({ error: 'API routes are handled by Vercel serverless functions. See /api folder.' });
-});
+// API routes are handled by Vercel serverless functions in the /api folder
+// This server is only for local development health checks
 
 // Health check endpoint
 app.get('/health', (req, res) => {
